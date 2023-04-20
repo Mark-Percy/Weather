@@ -9,9 +9,32 @@ export class WeatherService {
   
   constructor() { }
 
-  async getSites(loc: string) {
-    this.weatherApiUrl.pathname = 'check'
-    fetch(this.weatherApiUrl).then(ret => console.log(ret))
+  async getSites():Promise<Map<string, Map<string, Site[]>>> {
+    this.weatherApiUrl.pathname = 'v1/sites'
+    let resp = (await fetch(this.weatherApiUrl))
+    let locationMap: Map<string, Map<string, Site[]>> = new Map()
+    await resp.json().then(data => {
+      for (let region in data) {
+        if(!locationMap.has(region)) {
+          locationMap.set(region, new Map())
+        }
+        for(let area in data[region]) {
+          if(!locationMap.get(region)?.has(area)) locationMap.get(region)?.set(area, data[region][area])
+
+        }
+      }
+    })
+
+    return locationMap
   }
+
+}
+
+export interface Site {
+  name:string;
+  id:number
+}
+
+export interface regions {
 
 }

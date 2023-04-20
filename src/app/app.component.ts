@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WeatherService } from './weather.service';
+import { Site, WeatherService } from './weather.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +7,12 @@ import { WeatherService } from './weather.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Weather';
-  sites: Element[] = []
+  title: string = 'Weather';
+  locations: Map<string, Map<string, Site[]>> = new Map<string, Map<string, Site[]>>();
+  nw: Map<string, Site[]> = new Map<string, Site[]>()
 
   constructor(private weatherService: WeatherService) {
-    let sites = weatherService.getSites('nw');
+    weatherService.getSites().then(data => this.locations = data);
   }
 }
+

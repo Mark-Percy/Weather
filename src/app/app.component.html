@@ -1,8 +1,14 @@
 <h1>Weather</h1>
 <main>
   <section>
-    <ul>
-      <li *ngFor="let site of sites">{{ site.getAttribute('name') }}</li>
-    </ul>
+    <article *ngFor="let region of locations | keyvalue">
+      <h2>{{region.key}}</h2>
+      <section *ngFor="let authArea of region.value | keyvalue">
+        <h3>{{authArea.key}}</h3>
+        <ul>
+          <li *ngFor="let site of authArea.value">{{site.name}}</li>
+        </ul>
+      </section>
+    </article>
   </section>
 </main>
