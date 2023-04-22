@@ -3,12 +3,14 @@
   <section>
     <article *ngFor="let region of locations | keyvalue">
       <h2>{{region.key}}</h2>
-      <section *ngFor="let authArea of region.value | keyvalue">
-        <h3>{{authArea.key}}</h3>
-        <ul>
-          <li *ngFor="let site of authArea.value">{{site.name}}</li>
-        </ul>
-      </section>
+      <div>
+        <section *ngFor="let authArea of region.value | keyvalue">
+          <h3>{{authArea.key}}</h3>
+          <ul>
+            <li *ngFor="let site of authArea.value">{{site.name}}</li>
+          </ul>
+        </section>
+      </div>
     </article>
   </section>
 </main>
